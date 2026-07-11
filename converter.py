@@ -75,7 +75,6 @@ class Converter: #TODO: find a better name so it doesn't conflict with the modul
             print(f"\x1b[2KConverting {full_dst_path.name} to {self.selected_format}...", end="\r")
             try:
                 image = Image.open(file)
-                num_of_converted_files += 1
             except UnidentifiedImageError:
                 num_of_failed_conversions += 1
                 non_image_list.append(file)
@@ -138,7 +137,6 @@ class Converter: #TODO: find a better name so it doesn't conflict with the modul
                             pass
                         elif response.get() == "Downscale all":
                             self.downscale_all = True
-                            num_of_converted_files += 1
 
                     original_max = Image.MAX_IMAGE_PIXELS # remove decomp bomb check for downscaling only
                     Image.MAX_IMAGE_PIXELS = None
@@ -166,6 +164,7 @@ class Converter: #TODO: find a better name so it doesn't conflict with the modul
                     subsampling=0,
                 )
                 image.close()
+                num_of_converted_files += 1
                 image = None
 
             self.gui.update_progressbar(
